@@ -1,0 +1,36 @@
+name: Daily Stock Update
+
+on:
+  schedule:
+    - cron: '0 9 * * *'  # 매일 UTC 9AM (한국 오후 6시)
+  workflow_dispatch:  # 수동 실행 버튼
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}  # PAT Secrets에서 가져옴
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+    
+    - name: Install dependencies
+      run: |
+        pip install yfinance requests beautifulsoup4
+    
+    - name: Run update script
+      run: python update_html.py  # 스크립트 실행 (테슬라 예시, 종목 리스트 확장 가능)
+      env:
+        NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}  # NewsAPI 키 Secrets에 추가
+    
+    - name: Commit changes
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add .
+        git diff --staged --quiet || git commit -m "Daily update: Tesla infographic ({{ github.run_number }})"
+        git push
