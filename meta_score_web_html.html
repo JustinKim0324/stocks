@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>메타 종합점수</title>
+  <style>
+    body { background-color: #000; color: #fff; font-family: sans-serif; padding: 2rem; }
+    .container { max-width: 960px; margin: auto; }
+    .score-box { background-color: #1a1a1a; padding: 1rem; border-radius: 12px; margin-bottom: 2rem; }
+    .score-box h1 { color: #00d8ff; font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .score-box p { color: #aaa; font-size: 0.9rem; }
+    .grid { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+    @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .section { background-color: #1f1f1f; border-radius: 12px; padding: 1rem; }
+    .section h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+    .section.bullish h2 { color: #66ff66; }
+    .section.bearish h2 { color: #ff6666; }
+    .factor { border-bottom: 1px solid #444; padding: 0.5rem 0; }
+    .factor-title { display: flex; justify-content: space-between; font-weight: bold; }
+    .factor-score.bullish { color: #66ff66; }
+    .factor-score.bearish { color: #ff6666; }
+    .factor-detail { font-size: 0.9rem; color: #ccc; margin-top: 0.25rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="score-box">
+      <h1>메타 종합점수: -60점</h1>
+      <p>(상승 730점 / 하락 790점)</p>
+      <p>(estimated by Justin Kim Research)</p>
+    </div>
+    <div class="grid">
+      <div class="section bullish">
+        <h2>📈 상승 요인</h2>
+        <div class="factor"><div class="factor-title"><span>광고 사업 회복 및 AI 효과</span><span class="factor-score bullish">85점</span></div><div class="factor-detail">AI 기반 추천 강화로 광고 단가 및 노출이 개선되어 실적 회복에 크게 기여했습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>압도적인 사용자 규모 및 참여도</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">34억 명에 달하는 일일 이용자와 증가하는 체류 시간은 견조한 수익 기반입니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>비용 절감에 따른 이익 개선</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">구조조정과 효율성 전략으로 이익이 크게 개선되며 주주환원 여력이 확대되었습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>밸류에이션 매력</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">P/E 23배 수준으로 동종 빅테크 대비 낮아 저평가 인식이 존재합니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>신규 플랫폼 성과 (ReelsㆍThreads)</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">숏폼ㆍ텍스트 SNS 확대를 통해 틱톡과 트위터 사용자 흡수를 시도 중입니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>소셜미디어 광고 시장 지배력</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">페이스북과 인스타그램은 광고 시장 내 필수 플랫폼으로 자리 잡고 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>WhatsAppㆍ커머스 수익화</span><span class="factor-score bullish">60점</span></div><div class="factor-detail">커머스 연계 메시징 광고 수익화가 본격화되며 새로운 성장 기대를 받고 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>미래 사업 옵션 (메타버스 등)</span><span class="factor-score bullish">55점</span></div><div class="factor-detail">장기적으로 메타버스 생태계 구축을 통한 새로운 플랫폼 선점 기회를 추구하고 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>경쟁사 이슈에 따른 반사이익</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">틱톡 금지 이슈 등 경쟁 약화 시 인스타그램 등으로 사용자가 유입될 가능성이 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>거시환경 호전 기대</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">연준의 완화적 스탠스와 경기 연착륙 기대는 기술주 전반의 투자심리를 자극하고 있습니다.</div></div>
+      </div>
+      <div class="section bearish">
+        <h2>📉 하락 요인</h2>
+        <div class="factor"><div class="factor-title"><span>메타버스 사업 적자 지속</span><span class="factor-score bearish">85점</span></div><div class="factor-detail">Reality Labs의 누적 손실이 600억 달러를 넘으며 수익성 악화를 초래하고 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>틱톡 등 경쟁심화</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">젊은 층 중심으로 틱톡 유입이 늘어나며 사용자 이탈 우려가 존재합니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>광고 타겟 약화 (iOS 정책)</span><span class="factor-score bearish">75점</span></div><div class="factor-detail">애플 ATT 정책으로 광고 정밀도가 낮아지고 있어 광고 효율에 타격을 받고 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>규제 및 법적 리스크</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">유럽 DMA 등으로 맞춤광고 제한이 현실화되며 지역별 매출 타격 가능성이 존재합니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>과도한 투자 지출</span><span class="factor-score bearish">75점</span></div><div class="factor-detail">AI 인프라 투자 확대로 연간 Capex가 700억 달러에 육박하며 수익성 훼손 우려가 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>밸류에이션 부담</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">주가 급등에 따라 고평가 논란이 커지고 있으며 일부는 과도한 선반영이라 평가합니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>성장 둔화 우려</span><span class="factor-score bearish">85점</span></div><div class="factor-detail">이용자 증가세가 정체되고 있으며 매출 및 EPS 성장률이 둔화되는 흐름입니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>브랜드 이미지 악화</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">잦은 개인정보 스캔들과 허위정보 논란 등으로 평판 리스크가 상존합니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>경기 민감도</span><span class="factor-score bearish">65점</span></div><div class="factor-detail">광고는 경기민감 산업으로 경기침체 시 실적 타격이 불가피합니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>경영진 전략 리스크</span><span class="factor-score bearish">75점</span></div><div class="factor-detail">저커버그의 장기 메타버스 집착과 독단적 의사결정 구조가 투자자 불안을 키우고 있습니다.</div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

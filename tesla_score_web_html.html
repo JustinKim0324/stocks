@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>테슬라 종합점수</title>
+  <style>
+    body { background-color: #000; color: #fff; font-family: sans-serif; padding: 2rem; }
+    .container { max-width: 960px; margin: auto; }
+    .score-box { background-color: #1a1a1a; padding: 1rem; border-radius: 12px; margin-bottom: 2rem; }
+    .score-box h1 { color: #ffcc00; font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .score-box p { color: #aaa; font-size: 0.9rem; }
+    .grid { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+    @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .section { background-color: #1f1f1f; border-radius: 12px; padding: 1rem; }
+    .section h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+    .section.bullish h2 { color: #66ff66; }
+    .section.bearish h2 { color: #ff6666; }
+    .factor { border-bottom: 1px solid #444; padding: 0.5rem 0; }
+    .factor-title { display: flex; justify-content: space-between; font-weight: bold; }
+    .factor-score.bullish { color: #66ff66; }
+    .factor-score.bearish { color: #ff6666; }
+    .factor-detail { font-size: 0.9rem; color: #ccc; margin-top: 0.25rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="score-box">
+      <h1>테슬라 종합점수: -95점</h1>
+      <p>(estimated by Justin Kim Research)</p>
+    </div>
+    <div class="grid">
+      <div class="section bullish">
+        <h2>📈 상승 요인</h2>
+        <div class="factor"><div class="factor-title"><span>일론 머스크의 경영 집중 선언</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">최근 머스크가 정치적 활동 대신 테슬라 경영에 집중하겠다는 메시지를 강조하면서 투자자 신뢰 회복 분위기.</div></div>
+        <div class="factor"><div class="factor-title"><span>로보택시 및 FSD 기대감</span><span class="factor-score bullish">85점</span></div><div class="factor-detail">7월 로보택시 이벤트 예고, 베타 서비스 확대 등으로 자율주행 사업 성장 기대감 확대.</div></div>
+        <div class="factor"><div class="factor-title"><span>슈퍼차저망(NACS) 주도권</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">미국 내 NACS 표준 채택 확산으로 충전 인프라 장악력 강화.</div></div>
+        <div class="factor"><div class="factor-title"><span>양호한 재무 체력 및 수익성</span><span class="factor-score bullish">65점</span></div><div class="factor-detail">부채비율 낮고 현금 보유량 풍부. 안정적인 재무 기반.</div></div>
+        <div class="factor"><div class="factor-title"><span>신차 출시 및 제품 로드맵</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">보급형 모델 및 사이버트럭, 옵티머스 등 다변화된 제품군 확장 기대.</div></div>
+        <div class="factor"><div class="factor-title"><span>글로벌 EV 수요 증가 및 선도 지위</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">중장기적 전기차 수요 증가 예상, 여전히 선두 브랜드 인지도.</div></div>
+        <div class="factor"><div class="factor-title"><span>에너지 부문 성장 (메가팩 등)</span><span class="factor-score bullish">65점</span></div><div class="factor-detail">비EV 사업 부문 수익 확대 기대. 고마진 메가팩 수요 지속.</div></div>
+        <div class="factor"><div class="factor-title"><span>규모의 경제 및 원가 경쟁력</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">글로벌 생산 효율화 및 원가 절감 능력 지속 부각.</div></div>
+        <div class="factor"><div class="factor-title"><span>낙관적 목표주가 및 강세론자 존재</span><span class="factor-score bullish">60점</span></div><div class="factor-detail">ARK 등 일부 주요 기관의 공격적 목표주가 유지로 낙관론 유지.</div></div>
+        <div class="factor"><div class="factor-title"><span>정책적 지원 (세액공제 등)</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">미국 IRA 세액 공제 등 우호적 정책 지속 전망.</div></div>
+        <div class="factor"><div class="factor-title"><span>AI/로봇 등 기술혁신 기대감</span><span class="factor-score bullish">60점</span></div><div class="factor-detail">옵티머스 로봇, AI칩 등 비EV 신사업 성장 가능성 주목.</div></div>
+      </div>
+      <div class="section bearish">
+        <h2>📉 하락 요인</h2>
+        <div class="factor"><div class="factor-title"><span>경쟁 심화 및 가격 전쟁</span><span class="factor-score bearish">90점</span></div><div class="factor-detail">BYD, 현대 등 경쟁사 공세로 EV 마진 압박 심화.</div></div>
+        <div class="factor"><div class="factor-title"><span>유럽 수요 둔화 (보조금 종료 등)</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">독일·프랑스의 보조금 종료로 유럽 수요 둔화 확인.</div></div>
+        <div class="factor"><div class="factor-title"><span>중국 시장 역풍</span><span class="factor-score bearish">85점</span></div><div class="factor-detail">BYD와의 점유율 경쟁, 브랜드 이미지 저하로 실적 둔화 우려.</div></div>
+        <div class="factor"><div class="factor-title"><span>가격 인하 → 마진 악화</span><span class="factor-score bearish">95점</span></div><div class="factor-detail">출고가 인하가 매출 방어에는 효과적이나 이익률 하락 유발.</div></div>
+        <div class="factor"><div class="factor-title"><span>머스크 리스크 (정치/이미지)</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">머스크의 정치적 발언 및 트럼프와의 갈등, 기업 이미지에 부담.</div></div>
+        <div class="factor"><div class="factor-title"><span>보조금 폐지 우려 (트럼프 변수 포함)</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">트럼프 재선 시 EV 보조금 축소 우려 지속.</div></div>
+        <div class="factor"><div class="factor-title"><span>과열 밸류에이션 논란</span><span class="factor-score bearish">85점</span></div><div class="factor-detail">PER 70~90배 수준으로 고평가 논란 여전.</div></div>
+        <div class="factor"><div class="factor-title"><span>실적 전망 하향 조정</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">2분기 EPS 추정치 하향 조정이 잇따름.</div></div>
+        <div class="factor"><div class="factor-title"><span>신차 생산 지연 및 구현 불확실성</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">사이버트럭 등 일부 라인업 양산 속도 지연 우려.</div></div>
+        <div class="factor"><div class="factor-title"><span>안전성·규제 리스크</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">FSD 관련 사고 및 규제 강화 가능성 부각.</div></div>
+        <div class="factor"><div class="factor-title"><span>거시경제 불확실성 (금리 등)</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">금리 고점 우려 및 경기 둔화 시 소비 둔화 가능성.</div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>마이크로소프트 종합점수</title>
+  <style>
+    body { background-color: #000; color: #fff; font-family: sans-serif; padding: 2rem; }
+    .container { max-width: 960px; margin: auto; }
+    .score-box { background-color: #1a1a1a; padding: 1rem; border-radius: 12px; margin-bottom: 2rem; }
+    .score-box h1 { color: #00ccff; font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .score-box p { color: #aaa; font-size: 0.9rem; }
+    .grid { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+    @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .section { background-color: #1f1f1f; border-radius: 12px; padding: 1rem; }
+    .section h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+    .section.bullish h2 { color: #66ff66; }
+    .section.bearish h2 { color: #ff6666; }
+    .factor { border-bottom: 1px solid #444; padding: 0.5rem 0; }
+    .factor-title { display: flex; justify-content: space-between; font-weight: bold; }
+    .factor-score.bullish { color: #66ff66; }
+    .factor-score.bearish { color: #ff6666; }
+    .factor-detail { font-size: 0.9rem; color: #ccc; margin-top: 0.25rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="score-box">
+      <h1>마이크로소프트 종합점수: +35점</h1>
+      <p>(estimated by Justin Kim Research)</p>
+    </div>
+    <div class="grid">
+      <div class="section bullish">
+        <h2>📈 상승 요인</h2>
+        <div class="factor"><div class="factor-title"><span>Azure 및 AI 매출 성장 가속</span><span class="factor-score bullish">95점</span></div><div class="factor-detail">Azure 매출 33% 증가 중 16%가 AI 관련. 다음 분기에도 34~35% 성장 전망으로 강한 수요 확인.</div></div>
+        <div class="factor"><div class="factor-title"><span>기업 고객 기반의 확장성</span><span class="factor-score bullish">90점</span></div><div class="factor-detail">Office365를 사용하는 전 세계 200만 개 기업을 기반으로 안정적 매출과 성장 가능성 보유.</div></div>
+        <div class="factor"><div class="factor-title"><span>Copilot 등 AI 도입 확산</span><span class="factor-score bullish">85점</span></div><div class="factor-detail">Fortune 500 기업 70%가 Copilot 사용. 업무용 AI의 실질적 수익화 가능성 확인.</div></div>
+        <div class="factor"><div class="factor-title"><span>OpenAI와의 전략적 파트너십</span><span class="factor-score bullish">85점</span></div><div class="factor-detail">Azure 인프라에 OpenAI 모델을 탑재하며 독점적 파트너십 유지 중.</div></div>
+        <div class="factor"><div class="factor-title"><span>재무 안정성과 자사주 매입</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">EPS 예상치 초과 및 70억 달러 자사주 매입. AI 투자와 수익성 모두 확보.</div></div>
+        <div class="factor"><div class="factor-title"><span>비용 절감과 구조조정</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">AI 투자 대응을 위해 전체 인력의 3% 구조조정 단행. 효율적 자본 운용.</div></div>
+        <div class="factor"><div class="factor-title"><span>사업 포트폴리오 다각화</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">Azure, Office, LinkedIn, 게임 등 수익원 분산으로 안정성 확보.</div></div>
+        <div class="factor"><div class="factor-title"><span>클라우드 및 AI 경쟁 우위</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">Azure 매출 성장률이 AWS, GCP를 초과. AI 워크로드 시장 선도 중.</div></div>
+        <div class="factor"><div class="factor-title"><span>목표가 상향과 시장 신뢰</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">MSFT 주가 사상 최고치 경신 중. 목표가 $510 이상으로 긍정적 전망 유지.</div></div>
+        <div class="factor"><div class="factor-title"><span>CEO 사티아 나델라의 리더십</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">AI·클라우드 중심의 전환을 성공적으로 이끈 리더십이 프리미엄 요인.</div></div>
+      </div>
+      <div class="section bearish">
+        <h2>📉 하락 요인</h2>
+        <div class="factor"><div class="factor-title"><span>높은 밸류에이션 부담</span><span class="factor-score bearish">95점</span></div><div class="factor-detail">PER 29배 수준으로 과도한 기대가 반영. 실적 둔화 시 급락 위험 존재.</div></div>
+        <div class="factor"><div class="factor-title"><span>AI 투자 비용 급증</span><span class="factor-score bearish">90점</span></div><div class="factor-detail">2025년 한 해에만 800억 달러 지출 계획. 단기 마진 압박 우려.</div></div>
+        <div class="factor"><div class="factor-title"><span>OpenAI와의 갈등 우려</span><span class="factor-score bearish">90점</span></div><div class="factor-detail">파트너십 독점성 상실 시 Azure AI 성장에 제동 가능성.</div></div>
+        <div class="factor"><div class="factor-title"><span>심화되는 경쟁 환경</span><span class="factor-score bearish">85점</span></div><div class="factor-detail">AWS, Google Cloud, NVIDIA 등 경쟁사들의 추격 본격화.</div></div>
+        <div class="factor"><div class="factor-title"><span>AI 경쟁력의 지속 가능성 의문</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">Copilot 외의 AI 제품 차별화 부족. 장기적 우위 확신 부족.</div></div>
+        <div class="factor"><div class="factor-title"><span>전통 사업 부문의 성장 둔화</span><span class="factor-score bearish">75점</span></div><div class="factor-detail">Windows 등 비-AI 부문 성장 둔화가 전체 실적에 부담.</div></div>
+        <div class="factor"><div class="factor-title"><span>임원진의 주식 매도</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">최근 6개월 간 내부자 매도만 9건 이상. 고점 인식 신호로 해석 가능.</div></div>
+        <div class="factor"><div class="factor-title"><span>규제 및 반독점 리스크</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">OpenAI 지분 구조 및 Teams 제품 끼워팔기 이슈 등 규제 우려.</div></div>
+        <div class="factor"><div class="factor-title"><span>게임 사업의 성과 부족</span><span class="factor-score bearish">65점</span></div><div class="factor-detail">Activision 인수 후 게임 매출 성장 기대에 못 미침.</div></div>
+        <div class="factor"><div class="factor-title"><span>금리/거시환경 리스크</span><span class="factor-score bearish">65점</span></div><div class="factor-detail">금리 재상승 시 멀티플 압축 우려 및 기술주 회피 심리 강화.</div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

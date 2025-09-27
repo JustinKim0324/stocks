@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>알파벳 종합점수</title>
+  <style>
+    body { background-color: #000; color: #fff; font-family: sans-serif; padding: 2rem; }
+    .container { max-width: 960px; margin: auto; }
+    .score-box { background-color: #1a1a1a; padding: 1rem; border-radius: 12px; margin-bottom: 2rem; }
+    .score-box h1 { color: #ffcc00; font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .score-box p { color: #aaa; font-size: 0.9rem; }
+    .grid { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+    @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .section { background-color: #1f1f1f; border-radius: 12px; padding: 1rem; }
+    .section h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+    .section.bullish h2 { color: #66ff66; }
+    .section.bearish h2 { color: #ff6666; }
+    .factor { border-bottom: 1px solid #444; padding: 0.5rem 0; }
+    .factor-title { display: flex; justify-content: space-between; font-weight: bold; }
+    .factor-score.bullish { color: #66ff66; }
+    .factor-score.bearish { color: #ff6666; }
+    .factor-detail { font-size: 0.9rem; color: #ccc; margin-top: 0.25rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="score-box">
+      <h1>알파벳 종합점수: +70점</h1>
+      <p>(상승 800점 / 하락 730점)</p>
+      <p>(estimated by Justin Kim Research)</p>
+    </div>
+    <div class="grid">
+      <div class="section bullish">
+        <h2>📈 상승 요인</h2>
+        <div class="factor"><div class="factor-title"><span>AI 혁신 주도</span><span class="factor-score bullish">85점</span></div><div class="factor-detail">Gemini 및 Bard 등의 차세대 AI 모델을 출시하며 기술 리더십을 공고히 하고 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>검색 시장 지배력</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">전세계 검색엔진 시장의 약 88% 점유율을 유지하며 안정적 광고 수요를 확보하고 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>매출원 다변화</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">YouTube, Google Play, Google Cloud 등으로 사업 포트폴리오를 다각화하여 리스크를 분산하고 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>클라우드 사업 성장</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">Google Cloud가 분기 매출 28% 성장 및 영업흑자를 지속하며 장기 모멘텀으로 부상했습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>견조한 실적</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">1분기 매출 $902억(+12% YoY), 영업이익률 34% 개선 등 펀더멘털이 강세를 보였습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>주주 환원 강화</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">배당 인상 및 $700억 규모 자사주 매입을 통해 주주환원을 적극 확대했습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>밸류에이션 매력</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">선행 PER 17.5배 수준으로 업계 평균 대비 저평가 구간에 진입했습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>미래 성장 옵션</span><span class="factor-score bullish">65점</span></div><div class="factor-detail">Waymo, Verily 등 Other Bets의 잠재적 성장으로 중장기 기업 가치를 높일 여지가 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>투자자 낙관론</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">월가 애널리스트들의 평균 목표주가가 현 주가 대비 +20% 이상을 제시하고 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>브랜드 파워</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">Google 생태계의 압도적 사용자 충성도로 경쟁사의 추격을 견제하고 있습니다.</div></div>
+      </div>
+      <div class="section bearish">
+        <h2>📉 하락 요인</h2>
+        <div class="factor"><div class="factor-title"><span>검색 트래픽 잠식 우려</span><span class="factor-score bearish">90점</span></div><div class="factor-detail">생성형 AI의 부상으로 기존 검색 엔진 이용이 감소할 가능성이 커지고 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>디지털 광고 경쟁</span><span class="factor-score bearish">85점</span></div><div class="factor-detail">Amazon, Meta, TikTok 등 신규 플랫폼과의 광고 시장 경쟁이 심화되고 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>반독점 규제 리스크</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">미 DOJ 및 EU의 반독점 조사로 사업 분할 또는 제재 가능성이 지속되고 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>프라이버시 규제 강화</span><span class="factor-score bearish">75점</span></div><div class="factor-detail">GDPR 및 앱 추적 투명성(ATT) 정책으로 맞춤형 광고 효율이 저하되고 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>핵심 성장 둔화 우려</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">검색·광고 부문의 성장률이 10%대 초반으로 둔화 조짐을 보이고 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>막대한 투자 부담</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">AI 인프라 및 데이터센터 투자로 단기 수익성 희석 우려가 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>클라우드 경쟁 압박</span><span class="factor-score bearish">75점</span></div><div class="factor-detail">GCP의 시장 점유율은 AWS, Azure 대비 낮아 수익성 확보에 어려움이 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>거시경제 불확실</span><span class="factor-score bearish">75점</span></div><div class="factor-detail">고금리 및 경기 침체 우려로 광고 수요가 위축될 가능성이 있습니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>기술 경쟁 열세 가능성</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">OpenAI 및 Meta 등과의 기술 경쟁 심화로 시장 선도 유지가 불확실합니다.</div></div>
+        <div class="factor"><div class="factor-title"><span>광고 의존 구조</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">매출의 80% 이상을 광고에 의존하여 시장 변화에 취약합니다.</div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

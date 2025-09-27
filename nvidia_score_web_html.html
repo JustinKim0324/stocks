@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>엔비디아 종합점수</title>
+  <style>
+    body { background-color: #000; color: #fff; font-family: sans-serif; padding: 2rem; }
+    .container { max-width: 960px; margin: auto; }
+    .score-box { background-color: #1a1a1a; padding: 1rem; border-radius: 12px; margin-bottom: 2rem; }
+    .score-box h1 { color: #00ccff; font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .score-box p { color: #aaa; font-size: 0.9rem; }
+    .grid { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+    @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
+    .section { background-color: #1f1f1f; border-radius: 12px; padding: 1rem; }
+    .section h2 { font-size: 1.25rem; margin-bottom: 1rem; }
+    .section.bullish h2 { color: #66ff66; }
+    .section.bearish h2 { color: #ff6666; }
+    .factor { border-bottom: 1px solid #444; padding: 0.5rem 0; }
+    .factor-title { display: flex; justify-content: space-between; font-weight: bold; }
+    .factor-score.bullish { color: #66ff66; }
+    .factor-score.bearish { color: #ff6666; }
+    .factor-detail { font-size: 0.9rem; color: #ccc; margin-top: 0.25rem; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="score-box">
+      <h1>엔비디아 종합점수: +100점</h1>
+      <p>(estimated by Justin Kim Research)</p>
+    </div>
+    <div class="grid">
+      <div class="section bullish">
+        <h2>📈 상승 요인</h2>
+        <div class="factor"><div class="factor-title"><span>폭발적인 AI 칩 수요 지속</span><span class="factor-score bullish">95점</span></div><div class="factor-detail">AI 인프라 확대에 따라 데이터센터용 GPU 수요가 급증하며 수년간 안정적인 매출 성장 기반 확보.</div></div>
+        <div class="factor"><div class="factor-title"><span>실적 호조와 강한 가이던스</span><span class="factor-score bullish">90점</span></div><div class="factor-detail">+78% 매출 성장과 강한 가이던스 제시로 투자 심리에 긍정적 영향.</div></div>
+        <div class="factor"><div class="factor-title"><span>최첨단 기술 리더십 및 제품 로드맵</span><span class="factor-score bullish">90점</span></div><div class="factor-detail">Blackwell 기반 제품 출시 및 Rubin/Feynman 로드맵으로 기술 우위 지속.</div></div>
+        <div class="factor"><div class="factor-title"><span>CUDA 생태계의 지배력</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">독보적인 개발자 생태계로 소프트웨어 락인 구조 형성.</div></div>
+        <div class="factor"><div class="factor-title"><span>글로벌 시장 다변화</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">유럽·중동 등 지역 확장을 통해 지정학적 리스크 완화 및 수요 확대.</div></div>
+        <div class="factor"><div class="factor-title"><span>미래 신사업 투자 확대</span><span class="factor-score bullish">65점</span></div><div class="factor-detail">원자력 포함한 차세대 인프라 투자로 미래 성장 기반 강화.</div></div>
+        <div class="factor"><div class="factor-title"><span>대규모 백로그 확보</span><span class="factor-score bullish">85점</span></div><div class="factor-detail">1,750억 달러 수준의 주문 확보로 향후 매출 안정성 보장.</div></div>
+        <div class="factor"><div class="factor-title"><span>높은 마진율과 재무 건전성</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">70% 이상의 제품 마진 유지로 수익성 방어력 우수.</div></div>
+        <div class="factor"><div class="factor-title"><span>젠슨 황의 리더십</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">비전 제시와 실행력을 겸비한 CEO의 리더십에 대한 시장 신뢰 반영.</div></div>
+        <div class="factor"><div class="factor-title"><span>경쟁사 대비 우위 유지</span><span class="factor-score bullish">85점</span></div><div class="factor-detail">기술, 패키징, 소프트웨어 생태계 모두에서 지속적인 격차 유지.</div></div>
+      </div>
+      <div class="section bearish">
+        <h2>📉 하락 요인</h2>
+        <div class="factor"><div class="factor-title"><span>고평가 논란</span><span class="factor-score bearish">90점</span></div><div class="factor-detail">PER 고점 도달 및 밸류에이션 부담 증가로 차익 실현 우려 확대.</div></div>
+        <div class="factor"><div class="factor-title"><span>미중 갈등 및 수출통제 리스크</span><span class="factor-score bearish">95점</span></div><div class="factor-detail">중국 수출 규제로 수십억 달러 매출 손실 발생 및 향후 불확실성 확대.</div></div>
+        <div class="factor"><div class="factor-title"><span>공급망 제약 및 지정학 리스크</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">TSMC 의존 및 대만 지정학 이슈로 공급망 리스크 존재.</div></div>
+        <div class="factor"><div class="factor-title"><span>AMD 등 경쟁 심화</span><span class="factor-score bearish">90점</span></div><div class="factor-detail">AMD MI300 및 빅테크 자체 칩 등 경쟁사 추격 본격화.</div></div>
+        <div class="factor"><div class="factor-title"><span>AI 수요 피크 우려</span><span class="factor-score bearish">75점</span></div><div class="factor-detail">일부 데이터센터 증설 취소 등으로 투자 둔화 가능성 제기.</div></div>
+        <div class="factor"><div class="factor-title"><span>거시경제 변수 (금리 등)</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">긴축 및 경기 둔화시 성장주 약세 압력 확대 가능성.</div></div>
+        <div class="factor"><div class="factor-title"><span>내부자 지분 매각 이슈</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">경영진의 고점 매도 이슈가 투자심리 저해 요인으로 부각.</div></div>
+        <div class="factor"><div class="factor-title"><span>고객사들의 자체 칩 개발</span><span class="factor-score bearish">65점</span></div><div class="factor-detail">구글, 아마존, 메타 등의 자체 칩 개발이 중장기 매출 잠식 우려.</div></div>
+        <div class="factor"><div class="factor-title"><span>중국 AI칩 국산화 가속</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">화웨이 등 중국 내 대체 칩 개발 확대가 수요 감소로 연결 가능.</div></div>
+        <div class="factor"><div class="factor-title"><span>정책/규제 및 반독점 리스크</span><span class="factor-score bearish">60점</span></div><div class="factor-detail">AI산업 규제 및 독점조사 가능성이 잠재적 리스크로 지목됨.</div></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
