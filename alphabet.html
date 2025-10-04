@@ -1,63 +1,309 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>알파벳 종합점수</title>
-  <style>
-    body { background-color: #000; color: #fff; font-family: sans-serif; padding: 2rem; }
-    .container { max-width: 960px; margin: auto; }
-    .score-box { background-color: #1a1a1a; padding: 1rem; border-radius: 12px; margin-bottom: 2rem; }
-    .score-box h1 { color: #ffcc00; font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .score-box p { color: #aaa; font-size: 0.9rem; }
-    .grid { display: grid; gap: 2rem; grid-template-columns: 1fr; }
-    @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
-    .section { background-color: #1f1f1f; border-radius: 12px; padding: 1rem; }
-    .section h2 { font-size: 1.25rem; margin-bottom: 1rem; }
-    .section.bullish h2 { color: #66ff66; }
-    .section.bearish h2 { color: #ff6666; }
-    .factor { border-bottom: 1px solid #444; padding: 0.5rem 0; }
-    .factor-title { display: flex; justify-content: space-between; font-weight: bold; }
-    .factor-score.bullish { color: #66ff66; }
-    .factor-score.bearish { color: #ff6666; }
-    .factor-detail { font-size: 0.9rem; color: #ccc; margin-top: 0.25rem; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>알파벳 종합점수</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            display: grid;
+            grid-template-rows: auto auto auto 1fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .header {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .stock-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+        .score {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #4285f4, #34a853, #fbbc05, #ea4335);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .estimated {
+            font-size: 18px;
+            color: #aaa;
+            margin-top: 10px;
+        }
+        .performance-table {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .performance-table table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .performance-table th, .performance-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .performance-table th {
+            color: #4285f4;
+        }
+        .positive { color: #00ff88; }
+        .negative { color: #ff4444; }
+        .chart-container {
+            grid-row: 3;
+            grid-column: 1 / -1;
+            margin-bottom: 20px;
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border-left: 5px solid #4285f4;
+        }
+        .chart-container h3 {
+            color: #4285f4;
+            margin-bottom: 15px;
+        }
+        .tradingview-widget-container {
+            width: 100%;
+            height: 400px;
+        }
+        .section.up {
+            grid-row: 4;
+            grid-column: 1;
+            border-left-color: #00ff88;
+        }
+        .section.down {
+            grid-row: 4;
+            grid-column: 2;
+            border-left-color: #ff4444;
+        }
+        .section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .up h2 {
+            color: #00ff88;
+        }
+        .up h2::before {
+            content: "📈";
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        .down h2 {
+            color: #ff4444;
+        }
+        .down h2::before {
+            content: "📉";
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        .item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .item strong {
+            color: #fff;
+            display: block;
+            margin-bottom: 5px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto auto 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+            .score {
+                font-size: 36px;
+            }
+            .stock-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .tradingview-widget-container {
+                height: 300px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="score-box">
-      <h1>알파벳 종합점수: +70점</h1>
-      <p>(상승 800점 / 하락 730점)</p>
-      <p>(estimated by Justin Kim Research)</p>
+    <div class="container">
+        <div class="header">
+            <div class="stock-info">
+                <div class="score">알파벳 : 163.74 (+1.47%)</div>
+                <div class="performance-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>기간</th>
+                                <th>누적 상승률</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>최근 5일</td>
+                                <td class="positive">+2.34%</td>
+                            </tr>
+                            <tr>
+                                <td>최근 30일</td>
+                                <td class="positive">+5.67%</td>
+                            </tr>
+                            <tr>
+                                <td>+1년</td>
+                                <td class="positive">+23.89%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="estimated">(10월 4일 기준, estimated by Justin Kim Research)</div>
+        </div>
+        
+        <div class="chart-container">
+            <h3>알파벳 실시간 주가 차트 (TradingView Advanced Chart)</h3>
+            <div class="tradingview-widget-container">
+                <div id="tradingview_alphabet"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                <script type="text/javascript">
+                new TradingView.widget(
+                {
+                    "width": "100%",
+                    "height": 400,
+                    "symbol": "NASDAQ:GOOGL",
+                    "interval": "D",
+                    "timezone": "Etc/UTC",
+                    "theme": "dark",
+                    "style": "1",
+                    "locale": "en",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "allow_symbol_change": true,
+                    "container_id": "tradingview_alphabet"
+                }
+                );
+                </script>
+            </div>
+        </div>
+        
+        <div class="section up">
+            <h2>상승 요인</h2>
+            <div class="item">
+                <strong>Gemini AI 모델 성능 향상</strong>
+                Gemini Pro와 Ultra 모델의 경쟁력 확보로 ChatGPT 대항마 부상. 멀티모달 AI 기능으로 차별화 전략 성공.
+            </div>
+            <div class="item">
+                <strong>클라우드 사업 급성장</strong>
+                Google Cloud 매출 30% 이상 성장으로 AWS, Azure와 경쟁 본격화. AI 인프라 수요 증가로 고수익 확보.
+            </div>
+            <div class="item">
+                <strong>YouTube 광고 수익 회복</strong>
+                YouTube Shorts 수익화 모델 안정화로 메타 릴스 대비 우위. 크리에이터 이코노미 확산으로 콘텐츠 다양성 증가.
+            </div>
+            <div class="item">
+                <strong>검색 AI 통합 가속화</strong>
+                Search Generative Experience(SGE) 도입으로 검색 경험 혁신. AI 답변 품질 향상으로 사용자 만족도 제고.
+            </div>
+            <div class="item">
+                <strong>자율주행 Waymo 사업화</strong>
+                샌프란시스코, 피닉스 등에서 상용 서비스 확대. 로보택시 시장 선점으로 미래 모빌리티 리더십 구축.
+            </div>
+            <div class="item">
+                <strong>안드로이드 생태계 지배력</strong>
+                전 세계 스마트폰 OS 점유율 70% 이상 유지. Google Play Store 수수료 수익 안정적 증가.
+            </div>
+            <div class="item">
+                <strong>퀀텀 컴퓨팅 기술 리드</strong>
+                Sycamore 프로세서 성능 향상으로 IBM, 마이크로소프트와 퀀텀 패권 경쟁. 차세대 컴퓨팅 표준 선점.
+            </div>
+            <div class="item">
+                <strong>헬스케어 AI 진출</strong>
+                Med-PaLM 2 등 의료 AI 모델로 헬스케어 시장 진입. AI 진단 및 신약 개발 분야 투자 확대.
+            </div>
+            <div class="item">
+                <strong>강력한 현금 창출 능력</strong>
+                연간 자유현금흐름 700억 달러 이상으로 AI R&D 투자 여력 충분. 부채 비율 낮아 재무 안정성 우수.
+            </div>
+            <div class="item">
+                <strong>광고 시장 점유율 확대</strong>
+                디지털 광고 시장 성장으로 Google Ads 수익 지속 증가. 리테일 미디어 및 커머스 광고 진출 확대.
+            </div>
+        </div>
+        
+        <div class="section down">
+            <h2>하락 요인</h2>
+            <div class="item">
+                <strong>반독점 규제 리스크</strong>
+                미국 법무부의 검색 독점 소송으로 사업 분할 가능성. EU의 디지털시장법 규제로 수익 모델 변경 압박.
+            </div>
+            <div class="item">
+                <strong>AI 개발 비용 급증</strong>
+                대규모 언어모델 훈련 및 인프라 구축에 수백억 달러 투자 필요. 단기 수익성 악화 우려.
+            </div>
+            <div class="item">
+                <strong>틱톡, 인스타그램 릴스 경쟁</strong>
+                Z세대 유입 감소로 YouTube 성장률 둔화. 숏폼 콘텐츠 시장에서 메타, 바이트댄스와 치열한 경쟁.
+            </div>
+            <div class="item">
+                <strong>검색 행태 변화 위협</strong>
+                ChatGPT 등 생성형 AI로 전통적 검색 수요 감소 가능성. 젊은 세대의 소셜 미디어 정보 검색 선호.
+            </div>
+            <div class="item">
+                <strong>애플 iOS 정책 변화</strong>
+                앱 추적 투명성(ATT) 정책으로 모바일 광고 타겟팅 정확도 하락. 서드파티 쿠키 폐지로 광고 효율성 감소.
+            </div>
+            <div class="item">
+                <strong>중국 시장 접근 제한</strong>
+                중국 내 Google 서비스 차단 지속으로 세계 최대 시장 진입 불가. 바이두, 알리바바와 경쟁 기회 상실.
+            </div>
+            <div class="item">
+                <strong>클라우드 경쟁 심화</strong>
+                AWS, 마이크로소프트 Azure 대비 시장 점유율 3위. 엔터프라이즈 영업력 부족으로 대형 고객 확보 어려움.
+            </div>
+            <div class="item">
+                <strong>직원 감원 및 사기 저하</strong>
+                대규모 구조조정으로 핵심 인재 이탈 증가. 사내 불만 증가로 혁신 속도 둔화 우려.
+            </div>
+            <div class="item">
+                <strong>광고 시장 경기 민감성</strong>
+                경기 침체 시 기업 광고 예산 삭감으로 매출 타격. 디지털 광고 성장률 둔화 추세.
+            </div>
+            <div class="item">
+                <strong>프라이버시 규제 강화</strong>
+                GDPR, CCPA 등 데이터 보호 규제로 개인화 광고 제약. 사용자 데이터 수집 및 활용 한계 증가.
+            </div>
+        </div>
     </div>
-    <div class="grid">
-      <div class="section bullish">
-        <h2>📈 상승 요인</h2>
-        <div class="factor"><div class="factor-title"><span>AI 혁신 주도</span><span class="factor-score bullish">85점</span></div><div class="factor-detail">Gemini 및 Bard 등의 차세대 AI 모델을 출시하며 기술 리더십을 공고히 하고 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>검색 시장 지배력</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">전세계 검색엔진 시장의 약 88% 점유율을 유지하며 안정적 광고 수요를 확보하고 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>매출원 다변화</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">YouTube, Google Play, Google Cloud 등으로 사업 포트폴리오를 다각화하여 리스크를 분산하고 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>클라우드 사업 성장</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">Google Cloud가 분기 매출 28% 성장 및 영업흑자를 지속하며 장기 모멘텀으로 부상했습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>견조한 실적</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">1분기 매출 $902억(+12% YoY), 영업이익률 34% 개선 등 펀더멘털이 강세를 보였습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>주주 환원 강화</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">배당 인상 및 $700억 규모 자사주 매입을 통해 주주환원을 적극 확대했습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>밸류에이션 매력</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">선행 PER 17.5배 수준으로 업계 평균 대비 저평가 구간에 진입했습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>미래 성장 옵션</span><span class="factor-score bullish">65점</span></div><div class="factor-detail">Waymo, Verily 등 Other Bets의 잠재적 성장으로 중장기 기업 가치를 높일 여지가 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>투자자 낙관론</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">월가 애널리스트들의 평균 목표주가가 현 주가 대비 +20% 이상을 제시하고 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>브랜드 파워</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">Google 생태계의 압도적 사용자 충성도로 경쟁사의 추격을 견제하고 있습니다.</div></div>
-      </div>
-      <div class="section bearish">
-        <h2>📉 하락 요인</h2>
-        <div class="factor"><div class="factor-title"><span>검색 트래픽 잠식 우려</span><span class="factor-score bearish">90점</span></div><div class="factor-detail">생성형 AI의 부상으로 기존 검색 엔진 이용이 감소할 가능성이 커지고 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>디지털 광고 경쟁</span><span class="factor-score bearish">85점</span></div><div class="factor-detail">Amazon, Meta, TikTok 등 신규 플랫폼과의 광고 시장 경쟁이 심화되고 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>반독점 규제 리스크</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">미 DOJ 및 EU의 반독점 조사로 사업 분할 또는 제재 가능성이 지속되고 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>프라이버시 규제 강화</span><span class="factor-score bearish">75점</span></div><div class="factor-detail">GDPR 및 앱 추적 투명성(ATT) 정책으로 맞춤형 광고 효율이 저하되고 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>핵심 성장 둔화 우려</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">검색·광고 부문의 성장률이 10%대 초반으로 둔화 조짐을 보이고 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>막대한 투자 부담</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">AI 인프라 및 데이터센터 투자로 단기 수익성 희석 우려가 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>클라우드 경쟁 압박</span><span class="factor-score bearish">75점</span></div><div class="factor-detail">GCP의 시장 점유율은 AWS, Azure 대비 낮아 수익성 확보에 어려움이 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>거시경제 불확실</span><span class="factor-score bearish">75점</span></div><div class="factor-detail">고금리 및 경기 침체 우려로 광고 수요가 위축될 가능성이 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>기술 경쟁 열세 가능성</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">OpenAI 및 Meta 등과의 기술 경쟁 심화로 시장 선도 유지가 불확실합니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>광고 의존 구조</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">매출의 80% 이상을 광고에 의존하여 시장 변화에 취약합니다.</div></div>
-      </div>
-    </div>
-  </div>
 </body>
 </html>
