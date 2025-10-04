@@ -1,64 +1,301 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>테슬라 종합점수</title>
-  <style>
-    body { background-color: #000; color: #fff; font-family: sans-serif; padding: 2rem; }
-    .container { max-width: 960px; margin: auto; }
-    .score-box { background-color: #1a1a1a; padding: 1rem; border-radius: 12px; margin-bottom: 2rem; }
-    .score-box h1 { color: #ffcc00; font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .score-box p { color: #aaa; font-size: 0.9rem; }
-    .grid { display: grid; gap: 2rem; grid-template-columns: 1fr; }
-    @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
-    .section { background-color: #1f1f1f; border-radius: 12px; padding: 1rem; }
-    .section h2 { font-size: 1.25rem; margin-bottom: 1rem; }
-    .section.bullish h2 { color: #66ff66; }
-    .section.bearish h2 { color: #ff6666; }
-    .factor { border-bottom: 1px solid #444; padding: 0.5rem 0; }
-    .factor-title { display: flex; justify-content: space-between; font-weight: bold; }
-    .factor-score.bullish { color: #66ff66; }
-    .factor-score.bearish { color: #ff6666; }
-    .factor-detail { font-size: 0.9rem; color: #ccc; margin-top: 0.25rem; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테슬라 종합점수</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            display: grid;
+            grid-template-rows: auto auto auto 1fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .header {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .stock-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+        .score {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff4444, #ff6666);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .estimated {
+            font-size: 18px;
+            color: #aaa;
+            margin-top: 10px;
+        }
+        .performance-table {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .performance-table table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .performance-table th, .performance-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .performance-table th {
+            color: #ff4444;
+        }
+        .positive { color: #00ff88; }
+        .negative { color: #ff4444; }
+        .chart-container {
+            grid-row: 3;
+            grid-column: 1 / -1;
+            margin-bottom: 20px;
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border-left: 5px solid #ff4444;
+        }
+        .chart-container h3 {
+            color: #ff4444;
+            margin-bottom: 15px;
+        }
+        .tradingview-widget-container {
+            width: 100%;
+            height: 400px;
+        }
+        .section.up {
+            grid-row: 4;
+            grid-column: 1;
+            border-left-color: #00ff88;
+        }
+        .section.down {
+            grid-row: 4;
+            grid-column: 2;
+            border-left-color: #ff4444;
+        }
+        .section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .up h2 {
+            color: #00ff88;
+        }
+        .up h2::before {
+            content: "📈";
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        .down h2 {
+            color: #ff4444;
+        }
+        .down h2::before {
+            content: "📉";
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        .item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .item strong {
+            color: #fff;
+            display: block;
+            margin-bottom: 5px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto auto 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+            .score {
+                font-size: 36px;
+            }
+            .stock-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .tradingview-widget-container {
+                height: 300px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="score-box">
-      <h1>테슬라 종합점수: -95점</h1>
-      <p>(estimated by Justin Kim Research)</p>
+    <div class="container">
+        <div class="header">
+            <div class="stock-info">
+                <div class="score">테슬라 : 248.42 (-1.23%)</div>
+                <div class="performance-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>기간</th>
+                                <th>누적 상승률</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>최근 5일</td>
+                                <td class="negative">-2.45%</td>
+                            </tr>
+                            <tr>
+                                <td>최근 30일</td>
+                                <td class="positive">+8.23%</td>
+                            </tr>
+                            <tr>
+                                <td>+1년</td>
+                                <td class="negative">-12.67%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="estimated">(10월 4일 기준, estimated by Justin Kim Research)</div>
+        </div>
+        
+        <div class="chart-container">
+            <h3>테슬라 실시간 주가 차트 (TradingView Advanced Chart)</h3>
+            <div class="tradingview-widget-container">
+                <div id="tradingview_tesla"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                <script type="text/javascript">
+                new TradingView.widget(
+                {
+                    "width": "100%",
+                    "height": 400,
+                    "symbol": "NASDAQ:TSLA",
+                    "interval": "D",
+                    "timezone": "Etc/UTC",
+                    "theme": "dark",
+                    "style": "1",
+                    "locale": "en",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "allow_symbol_change": true,
+                    "container_id": "tradingview_tesla"
+                }
+                );
+                </script>
+            </div>
+        </div>
+        
+        <div class="section up">
+            <h2>상승 요인</h2>
+            <div class="item">
+                <strong>로보택시 이벤트 기대감</strong>
+                10월 10일 로보택시 데모 이벤트로 FSD 완전 자율주행 기술력 입증 기대. 월스트리트 분석가들이 주목하는 차세대 성장동력으로 평가.
+            </div>
+            <div class="item">
+                <strong>에너지 부문 성장 가속화</strong>
+                메가팩 Q3 매출 37% 증가로 에너지 저장 사업이 새로운 성장 엔진으로 부상. 전력망 안정화 수요 증가로 향후 고수익 확보 전망.
+            </div>
+            <div class="item">
+                <strong>사이버트럭 본격 생산 확대</strong>
+                월간 생산량 1,000대 달성으로 픽업트럭 시장 진입 본격화. 프리오더 200만대 이상 확보로 향후 2-3년간 안정적 매출 기반 구축.
+            </div>
+            <div class="item">
+                <strong>NACS 충전 표준 도입 확산</strong>
+                GM, 포드, 현대 등 주요 OEM들의 NACS 표준 채택으로 슈퍼차저 네트워크 수익성 개선. 충전 인프라 독점 지위 강화.
+            </div>
+            <div class="item">
+                <strong>중국 시장 회복 조짐</strong>
+                상하이 기가팩토리 생산량 정상화 및 중국 내 판매 증가 추세. 가격 경쟁력 확보로 BYD 등 현지 업체 대비 우위 유지.
+            </div>
+            <div class="item">
+                <strong>AI 및 옵티머스 로봇 사업화</strong>
+                xAI와의 시너지로 AI 기술 통합 가속화. 옵티머스 휴머노이드 로봇의 공장 자동화 적용으로 새로운 비즈니스 모델 창출 기대.
+            </div>
+            <div class="item">
+                <strong>재무 건전성 우수</strong>
+                현금 보유액 290억 달러 이상 유지로 경기 둔화에도 안정적 운영. 부채비율 낮아 추가 투자 여력 충분.
+            </div>
+            <div class="item">
+                <strong>글로벌 EV 시장 선도 지위</strong>
+                여전히 프리미엄 EV 브랜드 1위 유지. 배터리 기술 및 제조 효율성에서 경쟁사 대비 우위 지속.
+            </div>
+        </div>
+        
+        <div class="section down">
+            <h2>하락 요인</h2>
+            <div class="item">
+                <strong>중국 EV 업체들의 급격한 성장</strong>
+                BYD, 샤오미 등 중국 업체들의 기술력 향상과 공격적 가격정책으로 글로벌 시장 점유율 잠식. 특히 저가 시장에서 경쟁 열세.
+            </div>
+            <div class="item">
+                <strong>전기차 수요 성장 둔화</strong>
+                글로벌 EV 수요 증가율 둔화로 2024년 전년 대비 성장률 한 자리수 예상. 보조금 축소 및 충전 인프라 부족이 주요 원인.
+            </div>
+            <div class="item">
+                <strong>유럽 및 미국 시장 침체</strong>
+                독일, 프랑스 EV 보조금 종료로 유럽 판매량 20% 감소. 미국도 인플레이션으로 고가 EV 수요 위축.
+            </div>
+            <div class="item">
+                <strong>머스크의 정치적 활동 우려</strong>
+                트럼프 지지 및 정치적 발언으로 브랜드 이미지 논란. ESG 투자자들의 이탈 및 소비자 보이콧 우려.
+            </div>
+            <div class="item">
+                <strong>FSD 기술 완성도 의문</strong>
+                완전 자율주행 기술의 안전성 및 규제 승인 지연. NHTSA 조사 지속으로 로보택시 상용화 일정 불투명.
+            </div>
+            <div class="item">
+                <strong>높은 밸류에이션 부담</strong>
+                PER 60배 이상의 고평가 상태로 실적 부진 시 주가 급락 위험. 성장률 둔화 시 멀티플 축소 불가피.
+            </div>
+            <div class="item">
+                <strong>공급망 및 생산 차질</strong>
+                반도체 부족 지속 및 원자재 가격 상승으로 생산 비용 증가. 멕시코 기가팩토리 건설 지연 등 확장 계획 차질.
+            </div>
+            <div class="item">
+                <strong>경쟁사 전기차 출시 가속</strong>
+                BMW, 메르세데스, 아우디 등 전통 럭셔리 브랜드들의 고급 EV 출시로 프리미엄 시장 경쟁 심화.
+            </div>
+            <div class="item">
+                <strong>거시경제 악화 우려</strong>
+                글로벌 경기 침체 시 고가 내구재인 자동차 수요 급감 가능성. 금리 인상으로 자동차 대출 수요 위축.
+            </div>
+            <div class="item">
+                <strong>리콜 및 품질 이슈</strong>
+                FSD 소프트웨어 및 하드웨어 결함으로 인한 대규모 리콜 가능성. 품질 문제로 브랜드 신뢰도 하락 우려.
+            </div>
+        </div>
     </div>
-    <div class="grid">
-      <div class="section bullish">
-        <h2>📈 상승 요인</h2>
-        <div class="factor"><div class="factor-title"><span>일론 머스크의 경영 집중 선언</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">최근 머스크가 정치적 활동 대신 테슬라 경영에 집중하겠다는 메시지를 강조하면서 투자자 신뢰 회복 분위기.</div></div>
-        <div class="factor"><div class="factor-title"><span>로보택시 및 FSD 기대감</span><span class="factor-score bullish">85점</span></div><div class="factor-detail">7월 로보택시 이벤트 예고, 베타 서비스 확대 등으로 자율주행 사업 성장 기대감 확대.</div></div>
-        <div class="factor"><div class="factor-title"><span>슈퍼차저망(NACS) 주도권</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">미국 내 NACS 표준 채택 확산으로 충전 인프라 장악력 강화.</div></div>
-        <div class="factor"><div class="factor-title"><span>양호한 재무 체력 및 수익성</span><span class="factor-score bullish">65점</span></div><div class="factor-detail">부채비율 낮고 현금 보유량 풍부. 안정적인 재무 기반.</div></div>
-        <div class="factor"><div class="factor-title"><span>신차 출시 및 제품 로드맵</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">보급형 모델 및 사이버트럭, 옵티머스 등 다변화된 제품군 확장 기대.</div></div>
-        <div class="factor"><div class="factor-title"><span>글로벌 EV 수요 증가 및 선도 지위</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">중장기적 전기차 수요 증가 예상, 여전히 선두 브랜드 인지도.</div></div>
-        <div class="factor"><div class="factor-title"><span>에너지 부문 성장 (메가팩 등)</span><span class="factor-score bullish">65점</span></div><div class="factor-detail">비EV 사업 부문 수익 확대 기대. 고마진 메가팩 수요 지속.</div></div>
-        <div class="factor"><div class="factor-title"><span>규모의 경제 및 원가 경쟁력</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">글로벌 생산 효율화 및 원가 절감 능력 지속 부각.</div></div>
-        <div class="factor"><div class="factor-title"><span>낙관적 목표주가 및 강세론자 존재</span><span class="factor-score bullish">60점</span></div><div class="factor-detail">ARK 등 일부 주요 기관의 공격적 목표주가 유지로 낙관론 유지.</div></div>
-        <div class="factor"><div class="factor-title"><span>정책적 지원 (세액공제 등)</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">미국 IRA 세액 공제 등 우호적 정책 지속 전망.</div></div>
-        <div class="factor"><div class="factor-title"><span>AI/로봇 등 기술혁신 기대감</span><span class="factor-score bullish">60점</span></div><div class="factor-detail">옵티머스 로봇, AI칩 등 비EV 신사업 성장 가능성 주목.</div></div>
-      </div>
-      <div class="section bearish">
-        <h2>📉 하락 요인</h2>
-        <div class="factor"><div class="factor-title"><span>경쟁 심화 및 가격 전쟁</span><span class="factor-score bearish">90점</span></div><div class="factor-detail">BYD, 현대 등 경쟁사 공세로 EV 마진 압박 심화.</div></div>
-        <div class="factor"><div class="factor-title"><span>유럽 수요 둔화 (보조금 종료 등)</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">독일·프랑스의 보조금 종료로 유럽 수요 둔화 확인.</div></div>
-        <div class="factor"><div class="factor-title"><span>중국 시장 역풍</span><span class="factor-score bearish">85점</span></div><div class="factor-detail">BYD와의 점유율 경쟁, 브랜드 이미지 저하로 실적 둔화 우려.</div></div>
-        <div class="factor"><div class="factor-title"><span>가격 인하 → 마진 악화</span><span class="factor-score bearish">95점</span></div><div class="factor-detail">출고가 인하가 매출 방어에는 효과적이나 이익률 하락 유발.</div></div>
-        <div class="factor"><div class="factor-title"><span>머스크 리스크 (정치/이미지)</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">머스크의 정치적 발언 및 트럼프와의 갈등, 기업 이미지에 부담.</div></div>
-        <div class="factor"><div class="factor-title"><span>보조금 폐지 우려 (트럼프 변수 포함)</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">트럼프 재선 시 EV 보조금 축소 우려 지속.</div></div>
-        <div class="factor"><div class="factor-title"><span>과열 밸류에이션 논란</span><span class="factor-score bearish">85점</span></div><div class="factor-detail">PER 70~90배 수준으로 고평가 논란 여전.</div></div>
-        <div class="factor"><div class="factor-title"><span>실적 전망 하향 조정</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">2분기 EPS 추정치 하향 조정이 잇따름.</div></div>
-        <div class="factor"><div class="factor-title"><span>신차 생산 지연 및 구현 불확실성</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">사이버트럭 등 일부 라인업 양산 속도 지연 우려.</div></div>
-        <div class="factor"><div class="factor-title"><span>안전성·규제 리스크</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">FSD 관련 사고 및 규제 강화 가능성 부각.</div></div>
-        <div class="factor"><div class="factor-title"><span>거시경제 불확실성 (금리 등)</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">금리 고점 우려 및 경기 둔화 시 소비 둔화 가능성.</div></div>
-      </div>
-    </div>
-  </div>
 </body>
 </html>
