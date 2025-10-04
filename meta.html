@@ -1,63 +1,309 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>메타 종합점수</title>
-  <style>
-    body { background-color: #000; color: #fff; font-family: sans-serif; padding: 2rem; }
-    .container { max-width: 960px; margin: auto; }
-    .score-box { background-color: #1a1a1a; padding: 1rem; border-radius: 12px; margin-bottom: 2rem; }
-    .score-box h1 { color: #00d8ff; font-size: 2.5rem; margin-bottom: 0.5rem; }
-    .score-box p { color: #aaa; font-size: 0.9rem; }
-    .grid { display: grid; gap: 2rem; grid-template-columns: 1fr; }
-    @media (min-width: 768px) { .grid { grid-template-columns: 1fr 1fr; } }
-    .section { background-color: #1f1f1f; border-radius: 12px; padding: 1rem; }
-    .section h2 { font-size: 1.25rem; margin-bottom: 1rem; }
-    .section.bullish h2 { color: #66ff66; }
-    .section.bearish h2 { color: #ff6666; }
-    .factor { border-bottom: 1px solid #444; padding: 0.5rem 0; }
-    .factor-title { display: flex; justify-content: space-between; font-weight: bold; }
-    .factor-score.bullish { color: #66ff66; }
-    .factor-score.bearish { color: #ff6666; }
-    .factor-detail { font-size: 0.9rem; color: #ccc; margin-top: 0.25rem; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>메타 종합점수</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #000;
+            color: #fff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 1200px;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            display: grid;
+            grid-template-rows: auto auto auto 1fr;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .header {
+            grid-column: 1 / -1;
+            text-align: center;
+            margin-bottom: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .stock-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 10px;
+        }
+        .score {
+            font-size: 48px;
+            font-weight: bold;
+            background: linear-gradient(45deg, #1877f2, #42a5f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .estimated {
+            font-size: 18px;
+            color: #aaa;
+            margin-top: 10px;
+        }
+        .performance-table {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .performance-table table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+        .performance-table th, .performance-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .performance-table th {
+            color: #1877f2;
+        }
+        .positive { color: #00ff88; }
+        .negative { color: #ff4444; }
+        .chart-container {
+            grid-row: 3;
+            grid-column: 1 / -1;
+            margin-bottom: 20px;
+            text-align: center;
+            background: rgba(255,255,255,0.05);
+            border-radius: 15px;
+            padding: 20px;
+            border-left: 5px solid #1877f2;
+        }
+        .chart-container h3 {
+            color: #1877f2;
+            margin-bottom: 15px;
+        }
+        .tradingview-widget-container {
+            width: 100%;
+            height: 400px;
+        }
+        .section.up {
+            grid-row: 4;
+            grid-column: 1;
+            border-left-color: #00ff88;
+        }
+        .section.down {
+            grid-row: 4;
+            grid-column: 2;
+            border-left-color: #ff4444;
+        }
+        .section h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .up h2 {
+            color: #00ff88;
+        }
+        .up h2::before {
+            content: "📈";
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        .down h2 {
+            color: #ff4444;
+        }
+        .down h2::before {
+            content: "📉";
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        .item {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: rgba(255,255,255,0.02);
+            border-radius: 8px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .item strong {
+            color: #fff;
+            display: block;
+            margin-bottom: 5px;
+        }
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto auto 1fr;
+                gap: 20px;
+                padding: 20px;
+            }
+            .score {
+                font-size: 36px;
+            }
+            .stock-info {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .tradingview-widget-container {
+                height: 300px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <div class="score-box">
-      <h1>메타 종합점수: -60점</h1>
-      <p>(상승 730점 / 하락 790점)</p>
-      <p>(estimated by Justin Kim Research)</p>
+    <div class="container">
+        <div class="header">
+            <div class="stock-info">
+                <div class="score">메타 : 563.27 (+0.93%)</div>
+                <div class="performance-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>기간</th>
+                                <th>누적 상승률</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>최근 5일</td>
+                                <td class="positive">+3.12%</td>
+                            </tr>
+                            <tr>
+                                <td>최근 30일</td>
+                                <td class="positive">+7.89%</td>
+                            </tr>
+                            <tr>
+                                <td>+1년</td>
+                                <td class="positive">+68.95%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="estimated">(10월 4일 기준, estimated by Justin Kim Research)</div>
+        </div>
+        
+        <div class="chart-container">
+            <h3>메타 실시간 주가 차트 (TradingView Advanced Chart)</h3>
+            <div class="tradingview-widget-container">
+                <div id="tradingview_meta"></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                <script type="text/javascript">
+                new TradingView.widget(
+                {
+                    "width": "100%",
+                    "height": 400,
+                    "symbol": "NASDAQ:META",
+                    "interval": "D",
+                    "timezone": "Etc/UTC",
+                    "theme": "dark",
+                    "style": "1",
+                    "locale": "en",
+                    "toolbar_bg": "#f1f3f6",
+                    "enable_publishing": false,
+                    "allow_symbol_change": true,
+                    "container_id": "tradingview_meta"
+                }
+                );
+                </script>
+            </div>
+        </div>
+        
+        <div class="section up">
+            <h2>상승 요인</h2>
+            <div class="item">
+                <strong>Llama 3 AI 모델 성과</strong>
+                오픈소스 Llama 3.1 405B 모델로 AI 생태계 주도권 확보. 개발자 커뮤니티 확산으로 플랫폼 경쟁력 강화.
+            </div>
+            <div class="item">
+                <strong>메타버스 Reality Labs 전환점</strong>
+                Quest 3 헤드셋 판매 호조 및 VR/AR 콘텐츠 다양화로 메타버스 사업 수익성 개선 기대. 애플 Vision Pro 대비 가격 경쟁력 우위.
+            </div>
+            <div class="item">
+                <strong>릴스(Reels) 수익화 모델 안정화</strong>
+                틱톡 대항마로 성장한 인스타그램 릴스의 광고 수익 급증. 숏폼 콘텐츠 시장에서 틱톡과 양강 구도 형성.
+            </div>
+            <div class="item">
+                <strong>광고 타겟팅 AI 기술 향상</strong>
+                iOS ATT 정책 충격 극복 후 AI 기반 광고 최적화로 ROAS 개선. 퍼스트파티 데이터 활용으로 광고 효율성 제고.
+            </div>
+            <div class="item">
+                <strong>WhatsApp Business API 성장</strong>
+                전 세계 20억 사용자 기반의 WhatsApp 비즈니스 메시징 수익화 가속. 커머스 및 결제 서비스 통합으로 수익 다각화.
+            </div>
+            <div class="item">
+                <strong>효율성 개선 및 비용 절감</strong>
+                '효율성의 해' 선언 후 대규모 구조조정으로 운영 마진 개선. 인력 감축과 동시에 AI 자동화로 생산성 향상.
+            </div>
+            <div class="item">
+                <strong>쓰레드(Threads) 사용자 급증</strong>
+                트위터(X) 대안으로 부상한 Threads 사용자 1.5억 명 돌파. 실시간 뉴스 및 텍스트 기반 SNS 시장 진입.
+            </div>
+            <div class="item">
+                <strong>청소년층 Facebook 복귀</strong>
+                Z세대의 Facebook 재유입 증가로 사용자 기반 다양화. 세대별 플랫폼 차별화 전략으로 생태계 확장.
+            </div>
+            <div class="item">
+                <strong>글로벌 광고 시장 회복</strong>
+                디지털 광고 시장 성장 재개로 Meta 광고 수익 증가. 브랜드 광고 및 성과 광고 모두 회복세.
+            </div>
+            <div class="item">
+                <strong>인도 및 신흥국 사용자 증가</strong>
+                인도, 동남아시아 등 신흥국에서 Facebook, Instagram 사용자 지속 증가. 현지화 전략으로 시장 점유율 확대.
+            </div>
+        </div>
+        
+        <div class="section down">
+            <h2>하락 요인</h2>
+            <div class="item">
+                <strong>틱톡 경쟁 심화</strong>
+                Z세대에서 틱톡의 압도적 인기로 인스타그램 릴스 성장 제한. 중국 바이트댄스의 콘텐츠 알고리즘 우위 지속.
+            </div>
+            <div class="item">
+                <strong>Reality Labs 막대한 손실</strong>
+                메타버스 사업 부문 연간 160억 달러 손실로 주주들의 투자 회의론 증가. VR/AR 대중화 속도 예상보다 지연.
+            </div>
+            <div class="item">
+                <strong>EU 규제 및 개인정보 이슈</strong>
+                GDPR, DMA 등 유럽 규제 강화로 운영 제약 증가. 데이터 수집 및 광고 타겟팅 능력 제한으로 수익성 압박.
+            </div>
+            <div class="item">
+                <strong>애플 iOS 정책 지속 영향</strong>
+                앱 추적 투명성 정책으로 모바일 광고 정확도 하락. 서드파티 쿠키 단계적 폐지로 웹 광고 타겟팅 어려움.
+            </div>
+            <div class="item">
+                <strong>청소년 사용 시간 규제</strong>
+                각국 정부의 소셜미디어 사용 시간 제한 법안으로 핵심 사용자층인 청소년 이용 시간 감소 우려.
+            </div>
+            <div class="item">
+                <strong>AI 투자 비용 급증</strong>
+                Llama 모델 개발 및 GPU 인프라 구축에 수백억 달러 투자 필요. 단기 수익성 악화로 주주 반발 가능성.
+            </div>
+            <div class="item">
+                <strong>메타버스 회의론 확산</strong>
+                VR/AR 기술의 현실적 한계와 사용자 적응 속도 지연으로 메타버스 전략에 대한 시장 회의론 지속.
+            </div>
+            <div class="item">
+                <strong>직원 사기 및 인재 이탈</strong>
+                대규모 구조조정으로 핵심 인재 이탈 및 남은 직원들의 업무 부담 증가. 혁신 역량 저하 우려.
+            </div>
+            <div class="item">
+                <strong>광고 시장 경기 민감성</strong>
+                경기 침체 시 기업 광고 예산 삭감의 직접적 타격 대상. 광고 의존적 수익 구조의 근본적 취약성.
+            </div>
+            <div class="item">
+                <strong>가짜뉴스 및 콘텐츠 조절 비용</strong>
+                허위정보 확산 방지를 위한 콘텐츠 검토 비용 증가. 정치적 편향 논란으로 브랜드 이미지 악화 위험.
+            </div>
+        </div>
     </div>
-    <div class="grid">
-      <div class="section bullish">
-        <h2>📈 상승 요인</h2>
-        <div class="factor"><div class="factor-title"><span>광고 사업 회복 및 AI 효과</span><span class="factor-score bullish">85점</span></div><div class="factor-detail">AI 기반 추천 강화로 광고 단가 및 노출이 개선되어 실적 회복에 크게 기여했습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>압도적인 사용자 규모 및 참여도</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">34억 명에 달하는 일일 이용자와 증가하는 체류 시간은 견조한 수익 기반입니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>비용 절감에 따른 이익 개선</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">구조조정과 효율성 전략으로 이익이 크게 개선되며 주주환원 여력이 확대되었습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>밸류에이션 매력</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">P/E 23배 수준으로 동종 빅테크 대비 낮아 저평가 인식이 존재합니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>신규 플랫폼 성과 (ReelsㆍThreads)</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">숏폼ㆍ텍스트 SNS 확대를 통해 틱톡과 트위터 사용자 흡수를 시도 중입니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>소셜미디어 광고 시장 지배력</span><span class="factor-score bullish">80점</span></div><div class="factor-detail">페이스북과 인스타그램은 광고 시장 내 필수 플랫폼으로 자리 잡고 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>WhatsAppㆍ커머스 수익화</span><span class="factor-score bullish">60점</span></div><div class="factor-detail">커머스 연계 메시징 광고 수익화가 본격화되며 새로운 성장 기대를 받고 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>미래 사업 옵션 (메타버스 등)</span><span class="factor-score bullish">55점</span></div><div class="factor-detail">장기적으로 메타버스 생태계 구축을 통한 새로운 플랫폼 선점 기회를 추구하고 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>경쟁사 이슈에 따른 반사이익</span><span class="factor-score bullish">75점</span></div><div class="factor-detail">틱톡 금지 이슈 등 경쟁 약화 시 인스타그램 등으로 사용자가 유입될 가능성이 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>거시환경 호전 기대</span><span class="factor-score bullish">70점</span></div><div class="factor-detail">연준의 완화적 스탠스와 경기 연착륙 기대는 기술주 전반의 투자심리를 자극하고 있습니다.</div></div>
-      </div>
-      <div class="section bearish">
-        <h2>📉 하락 요인</h2>
-        <div class="factor"><div class="factor-title"><span>메타버스 사업 적자 지속</span><span class="factor-score bearish">85점</span></div><div class="factor-detail">Reality Labs의 누적 손실이 600억 달러를 넘으며 수익성 악화를 초래하고 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>틱톡 등 경쟁심화</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">젊은 층 중심으로 틱톡 유입이 늘어나며 사용자 이탈 우려가 존재합니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>광고 타겟 약화 (iOS 정책)</span><span class="factor-score bearish">75점</span></div><div class="factor-detail">애플 ATT 정책으로 광고 정밀도가 낮아지고 있어 광고 효율에 타격을 받고 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>규제 및 법적 리스크</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">유럽 DMA 등으로 맞춤광고 제한이 현실화되며 지역별 매출 타격 가능성이 존재합니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>과도한 투자 지출</span><span class="factor-score bearish">75점</span></div><div class="factor-detail">AI 인프라 투자 확대로 연간 Capex가 700억 달러에 육박하며 수익성 훼손 우려가 있습니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>밸류에이션 부담</span><span class="factor-score bearish">80점</span></div><div class="factor-detail">주가 급등에 따라 고평가 논란이 커지고 있으며 일부는 과도한 선반영이라 평가합니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>성장 둔화 우려</span><span class="factor-score bearish">85점</span></div><div class="factor-detail">이용자 증가세가 정체되고 있으며 매출 및 EPS 성장률이 둔화되는 흐름입니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>브랜드 이미지 악화</span><span class="factor-score bearish">70점</span></div><div class="factor-detail">잦은 개인정보 스캔들과 허위정보 논란 등으로 평판 리스크가 상존합니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>경기 민감도</span><span class="factor-score bearish">65점</span></div><div class="factor-detail">광고는 경기민감 산업으로 경기침체 시 실적 타격이 불가피합니다.</div></div>
-        <div class="factor"><div class="factor-title"><span>경영진 전략 리스크</span><span class="factor-score bearish">75점</span></div><div class="factor-detail">저커버그의 장기 메타버스 집착과 독단적 의사결정 구조가 투자자 불안을 키우고 있습니다.</div></div>
-      </div>
-    </div>
-  </div>
 </body>
 </html>
